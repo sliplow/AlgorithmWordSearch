@@ -10,10 +10,5 @@
 			SearchType = searchType;
 			Value = value;
 		}
-
-		public SearchPerimeter()
-		{
-			// TODO: Complete member initialization
-		}
 	}
 }

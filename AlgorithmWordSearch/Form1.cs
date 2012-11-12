@@ -129,7 +129,7 @@ namespace AlgorithmWordSearch
 					doc.Path = filename;
 
 					System.IO.File.ReadAllLines(openFileDialog1.FileName).ToList().ForEach(
-						x => doc.Sentences.Add(new Sentence(){Value = x}));
+						x => doc.Sentences.Add(new Sentence(doc){Value = x}));
 
 					Documents.Add(doc);
 
