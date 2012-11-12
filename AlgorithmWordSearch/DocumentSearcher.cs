@@ -38,46 +38,6 @@ namespace AlgorithmWordSearch
 
 			return Documents.Exists(x => x.MatchingSentences.Count != 0);
 		}
-
-		private void ExtractSentences(Document document)
-		{
-			foreach (Sentence sentence in document.Sentences)
-			{
-				int search1Matches = sentence.Value.Split(
-					new string[] { SearchPerimeters[0].Value }, 
-					StringSplitOptions.RemoveEmptyEntries).Length;
-
-				if (SearchPerimeters.Count == 1)
-				{
-					if (search1Matches != 0)
-					{
-						sentence.AddToMatches(search1Matches);
-					}
-				}
-
-				else
-				{
-					int search2Matches = sentence.Value.Split(
-						new string[] { SearchPerimeters[1].Value }, 
-						StringSplitOptions.RemoveEmptyEntries).Length;
-
-					if (SearchPerimeters[1].SearchType == SearchType.OR)
-					{
-						if (search1Matches != 0 || search2Matches != 0)
-						{
-							sentence.AddToMatches(search1Matches + search2Matches);
-						}
-					}
-					else
-					{
-						if (search1Matches != 0 && search2Matches != 0)
-						{
-							sentence.AddToMatches(search1Matches + search2Matches);
-						}
-					}
-				}
-			}
-		}
 		
 		private void ReorderSearchesByAnd()
 		{
