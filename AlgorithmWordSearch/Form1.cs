@@ -145,8 +145,11 @@ namespace AlgorithmWordSearch
 			positionLabel1.DataBindings.Clear();
 			valueTextBox.DataBindings.Clear();
 
-			if (!new DocumentSearcher(Documents, GetSearchPerimeters()).Search()) return;
-			
+			if (!new DocumentSearcher(Documents, GetSearchPerimeters()).Search())
+			{
+				MessageBox.Show("Search did not return any Results.");
+				return;
+			}
 
 			// Document Results Bind
 			documentComboBox.DataBindings.Add("Text", Documents, "Path");
