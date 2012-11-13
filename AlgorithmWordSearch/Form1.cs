@@ -46,6 +46,9 @@ namespace AlgorithmWordSearch
 			dataRepeater2.DataSource = Files;
 
 
+			// Document Results Bind
+			documentComboBox.DataBindings.Add("Text", Documents, "Path");
+			documentComboBox.DataSource = Documents;
 			
 
 			tabControl1.TabPages[1].Hide();
@@ -139,11 +142,12 @@ namespace AlgorithmWordSearch
 		{
 			if (!new DocumentSearcher(Documents, GetSearchPerimeters()).Search()) return;
 
+			// Clear Old results
+			importanceTextBox.DataBindings.Clear();
+			positionLabel1.DataBindings.Clear();
+			valueTextBox.DataBindings.Clear();
 
 			// Results Bind
-			documentComboBox.DataBindings.Add("Text", Documents, "Path");
-			documentComboBox.DataSource = Documents;
-
 
 			importanceTextBox.DataBindings.Add("Text", Documents[0].MatchingSentences, "Importance");
 			positionLabel1.DataBindings.Add("Text", Documents[0].MatchingSentences, "Position");
