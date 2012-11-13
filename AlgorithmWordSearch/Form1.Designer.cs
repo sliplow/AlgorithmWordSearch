@@ -31,11 +31,9 @@ namespace AlgorithmWordSearch
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
 			System.Windows.Forms.Label valueLabel;
 			System.Windows.Forms.Label positionLabel;
 			System.Windows.Forms.Label importanceLabel;
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DocumentWordSearch));
 			this.button1 = new System.Windows.Forms.Button();
 			this.progressBar1 = new System.Windows.Forms.ProgressBar();
 			this.ItemTemplate = new Microsoft.VisualBasic.PowerPacks.DataRepeaterItem();
@@ -54,24 +52,10 @@ namespace AlgorithmWordSearch
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.documentComboBox = new System.Windows.Forms.ComboBox();
-			this.documentBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.sentencesDataRepeater = new Microsoft.VisualBasic.PowerPacks.DataRepeater();
 			this.importanceTextBox = new System.Windows.Forms.Label();
 			this.positionLabel1 = new System.Windows.Forms.Label();
 			this.valueTextBox = new System.Windows.Forms.TextBox();
-			this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
-			this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
-			this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
-			this.bindingNavigatorPositionItem = new System.Windows.Forms.ToolStripTextBox();
-			this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
-			this.bindingNavigatorSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-			this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
-			this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
-			this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-			this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
-			this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
-			this.documentBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
-			this.documentBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
 			valueLabel = new System.Windows.Forms.Label();
 			positionLabel = new System.Windows.Forms.Label();
 			importanceLabel = new System.Windows.Forms.Label();
@@ -82,11 +66,8 @@ namespace AlgorithmWordSearch
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabPage2.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.documentBindingSource)).BeginInit();
 			this.sentencesDataRepeater.ItemTemplate.SuspendLayout();
 			this.sentencesDataRepeater.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.documentBindingNavigator)).BeginInit();
-			this.documentBindingNavigator.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// valueLabel
@@ -284,18 +265,12 @@ namespace AlgorithmWordSearch
 			// 
 			// documentComboBox
 			// 
-			this.documentComboBox.DataSource = this.documentBindingSource;
-			this.documentComboBox.DisplayMember = "Path";
 			this.documentComboBox.FormattingEnabled = true;
 			this.documentComboBox.Location = new System.Drawing.Point(3, 6);
 			this.documentComboBox.Name = "documentComboBox";
 			this.documentComboBox.Size = new System.Drawing.Size(533, 21);
 			this.documentComboBox.TabIndex = 2;
 			this.documentComboBox.ValueMember = "MatchingSentences";
-			// 
-			// documentBindingSource
-			// 
-			this.documentBindingSource.DataSource = typeof(AlgorithmWordSearch.Models.Document);
 			// 
 			// sentencesDataRepeater
 			// 
@@ -334,140 +309,14 @@ namespace AlgorithmWordSearch
 			// 
 			this.valueTextBox.Location = new System.Drawing.Point(65, 24);
 			this.valueTextBox.Name = "valueTextBox";
-			this.valueTextBox.Size = new System.Drawing.Size(497, 20);
+			this.valueTextBox.Size = new System.Drawing.Size(479, 20);
 			this.valueTextBox.TabIndex = 1;
-			// 
-			// bindingNavigatorMoveFirstItem
-			// 
-			this.bindingNavigatorMoveFirstItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
-			this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
-			this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
-			this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 22);
-			this.bindingNavigatorMoveFirstItem.Text = "Move first";
-			// 
-			// bindingNavigatorMovePreviousItem
-			// 
-			this.bindingNavigatorMovePreviousItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
-			this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
-			this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-			this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 22);
-			this.bindingNavigatorMovePreviousItem.Text = "Move previous";
-			// 
-			// bindingNavigatorSeparator
-			// 
-			this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
-			this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 25);
-			// 
-			// bindingNavigatorPositionItem
-			// 
-			this.bindingNavigatorPositionItem.AccessibleName = "Position";
-			this.bindingNavigatorPositionItem.AutoSize = false;
-			this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
-			this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
-			this.bindingNavigatorPositionItem.Text = "0";
-			this.bindingNavigatorPositionItem.ToolTipText = "Current position";
-			// 
-			// bindingNavigatorCountItem
-			// 
-			this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-			this.bindingNavigatorCountItem.Size = new System.Drawing.Size(35, 22);
-			this.bindingNavigatorCountItem.Text = "of {0}";
-			this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
-			// 
-			// bindingNavigatorSeparator1
-			// 
-			this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
-			this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 25);
-			// 
-			// bindingNavigatorMoveNextItem
-			// 
-			this.bindingNavigatorMoveNextItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
-			this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
-			this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-			this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 22);
-			this.bindingNavigatorMoveNextItem.Text = "Move next";
-			// 
-			// bindingNavigatorMoveLastItem
-			// 
-			this.bindingNavigatorMoveLastItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
-			this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
-			this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
-			this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 22);
-			this.bindingNavigatorMoveLastItem.Text = "Move last";
-			// 
-			// bindingNavigatorSeparator2
-			// 
-			this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
-			this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
-			// 
-			// bindingNavigatorAddNewItem
-			// 
-			this.bindingNavigatorAddNewItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
-			this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
-			this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
-			this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
-			this.bindingNavigatorAddNewItem.Text = "Add new";
-			// 
-			// bindingNavigatorDeleteItem
-			// 
-			this.bindingNavigatorDeleteItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.bindingNavigatorDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteItem.Image")));
-			this.bindingNavigatorDeleteItem.Name = "bindingNavigatorDeleteItem";
-			this.bindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
-			this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(23, 22);
-			this.bindingNavigatorDeleteItem.Text = "Delete";
-			// 
-			// documentBindingNavigatorSaveItem
-			// 
-			this.documentBindingNavigatorSaveItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.documentBindingNavigatorSaveItem.Enabled = false;
-			this.documentBindingNavigatorSaveItem.Image = ((System.Drawing.Image)(resources.GetObject("documentBindingNavigatorSaveItem.Image")));
-			this.documentBindingNavigatorSaveItem.Name = "documentBindingNavigatorSaveItem";
-			this.documentBindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 22);
-			this.documentBindingNavigatorSaveItem.Text = "Save Data";
-			// 
-			// documentBindingNavigator
-			// 
-			this.documentBindingNavigator.AddNewItem = this.bindingNavigatorAddNewItem;
-			this.documentBindingNavigator.CountItem = this.bindingNavigatorCountItem;
-			this.documentBindingNavigator.DeleteItem = this.bindingNavigatorDeleteItem;
-			this.documentBindingNavigator.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.documentBindingNavigator.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-			this.documentBindingNavigator.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bindingNavigatorMoveFirstItem,
-            this.bindingNavigatorMovePreviousItem,
-            this.bindingNavigatorSeparator,
-            this.bindingNavigatorPositionItem,
-            this.bindingNavigatorCountItem,
-            this.bindingNavigatorSeparator1,
-            this.bindingNavigatorMoveNextItem,
-            this.bindingNavigatorMoveLastItem,
-            this.bindingNavigatorSeparator2,
-            this.bindingNavigatorAddNewItem,
-            this.bindingNavigatorDeleteItem,
-            this.documentBindingNavigatorSaveItem});
-			this.documentBindingNavigator.Location = new System.Drawing.Point(0, 391);
-			this.documentBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
-			this.documentBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
-			this.documentBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
-			this.documentBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
-			this.documentBindingNavigator.Name = "documentBindingNavigator";
-			this.documentBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-			this.documentBindingNavigator.Size = new System.Drawing.Size(615, 25);
-			this.documentBindingNavigator.TabIndex = 9;
-			this.documentBindingNavigator.Text = "bindingNavigator1";
 			// 
 			// DocumentWordSearch
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(615, 416);
-			this.Controls.Add(this.documentBindingNavigator);
 			this.Controls.Add(this.tabControl1);
 			this.Name = "DocumentWordSearch";
 			this.Text = "Form1";
@@ -481,15 +330,10 @@ namespace AlgorithmWordSearch
 			this.tabPage1.ResumeLayout(false);
 			this.tabPage1.PerformLayout();
 			this.tabPage2.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.documentBindingSource)).EndInit();
 			this.sentencesDataRepeater.ItemTemplate.ResumeLayout(false);
 			this.sentencesDataRepeater.ItemTemplate.PerformLayout();
 			this.sentencesDataRepeater.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.documentBindingNavigator)).EndInit();
-			this.documentBindingNavigator.ResumeLayout(false);
-			this.documentBindingNavigator.PerformLayout();
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 
@@ -517,20 +361,6 @@ namespace AlgorithmWordSearch
 		private System.Windows.Forms.Label importanceTextBox;
 		private System.Windows.Forms.Label positionLabel1;
 		private System.Windows.Forms.TextBox valueTextBox;
-		private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
-		private System.Windows.Forms.ToolStripButton bindingNavigatorMovePreviousItem;
-		private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator;
-		private System.Windows.Forms.ToolStripTextBox bindingNavigatorPositionItem;
-		private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
-		private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator1;
-		private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem;
-		private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
-		private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
-		private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
-		private System.Windows.Forms.ToolStripButton bindingNavigatorDeleteItem;
-		private System.Windows.Forms.ToolStripButton documentBindingNavigatorSaveItem;
-		private System.Windows.Forms.BindingNavigator documentBindingNavigator;
 		private System.Windows.Forms.ComboBox documentComboBox;
-		private System.Windows.Forms.BindingSource documentBindingSource;
 	}
 }

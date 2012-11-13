@@ -140,6 +140,8 @@ namespace AlgorithmWordSearch
 		private void Search(object sender, EventArgs e)
 		{
 			// Clear Old results
+			documentComboBox.Items.Clear();
+
 			documentComboBox.DataBindings.Clear();
 			importanceTextBox.DataBindings.Clear();
 			positionLabel1.DataBindings.Clear();
@@ -153,7 +155,7 @@ namespace AlgorithmWordSearch
 
 			// Document Results Bind
 			documentComboBox.DataBindings.Add("Text", Documents, "Path");
-			documentComboBox.DataSource = Documents;
+			documentComboBox.Items.AddRange(Documents.Select(x => x.Path).ToArray());
 
 			// Results Bind
 
