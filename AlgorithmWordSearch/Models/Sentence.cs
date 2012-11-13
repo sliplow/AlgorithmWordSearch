@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace AlgorithmWordSearch.Models
+﻿namespace AlgorithmWordSearch.Models
 {
 	public class Sentence : ISentence
 	{
@@ -18,11 +13,11 @@ namespace AlgorithmWordSearch.Models
 			Parent = parent;
 		}
 
-		public void AddToMatches(int search1Matches)
+		public void AddToMatches(int searchMatches)
 		{
 			Sentence sentence = this;
 
-			sentence.Importance = search1Matches;
+			sentence.Importance = searchMatches;
 
 			sentence.Parent.MatchingSentences.Add(sentence);
 		}

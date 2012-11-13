@@ -49,11 +49,9 @@ namespace AlgorithmWordSearch
 
 		}
 
-		private void button1_Click(object sender, EventArgs e)
+		private void Search(object sender, EventArgs e)
 		{
-			List<SearchPerimeter> searchPerimeters = GetSearchPerimeters();
-
-			new DocumentSearcher(Documents, searchPerimeters).Search();
+			new DocumentSearcher(Documents, GetSearchPerimeters()).Search();
 		}
 
 		private List<SearchPerimeter> GetSearchPerimeters()
@@ -75,12 +73,12 @@ namespace AlgorithmWordSearch
 			return searchPerimeters;
 		}
 
-		private void button2_Click(object sender, EventArgs e)
+		private void AddNewSearchOption(object sender, EventArgs e)
 		{
 			SearchOptions.Rows.Add("", "AND");
 		}
 
-		private void button3_Click(object sender, EventArgs e)
+		private void RemoveSearchOption(object sender, EventArgs e)
 		{
 			SearchOptions.Rows.RemoveAt(dataRepeater1.CurrentItem.ItemIndex);
 		}

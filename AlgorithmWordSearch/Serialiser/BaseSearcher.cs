@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using AlgorithmWordSearch.Models;
 
 namespace AlgorithmWordSearch.Serialiser
@@ -31,17 +32,20 @@ namespace AlgorithmWordSearch.Serialiser
 			Search1 = search1;
 		}
 
+		/// <summary>
+		/// http://social.msdn.microsoft.com/Forums/en-US/csharplanguage/thread/2be73700-38cd-4098-9852-95b8d1406498
+		/// Used the above method instead of my initial idea of split, remove incorrect and then count.
+		/// Because of the additional loop involved.
+		/// </summary>
 		public virtual void Search()
 		{
-			Search1Matches = Sentence.Value.Split(
-				new string[] { Search1 },
-				StringSplitOptions.RemoveEmptyEntries).Length;
+			Regex regularExpression = new Regex(Sentence.Value, RegexOptions.IgnoreCase);
+
+			Search1Matches = regularExpression.Matches(Search1).Count;
 			
 			if (string.IsNullOrEmpty(Search2)) return;
-				
-			Search2Matches = Sentence.Value.Split(
-				new string[] { Search2 },
-				StringSplitOptions.RemoveEmptyEntries).Length; 
+
+			Search2Matches = regularExpression.Matches(Search2).Count; 
 		}
 	}
 }
