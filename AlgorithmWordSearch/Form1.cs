@@ -45,10 +45,6 @@ namespace AlgorithmWordSearch
 			label3.DataBindings.Add("Text", Files, "File Location");
 			dataRepeater2.DataSource = Files;
 
-
-			// Document Results Bind
-			documentComboBox.DataBindings.Add("Text", Documents, "Path");
-			documentComboBox.DataSource = Documents;
 			
 
 			tabControl1.TabPages[1].Hide();
@@ -107,21 +103,24 @@ namespace AlgorithmWordSearch
 
 					doc.Path = filename;
 
-					List<string> sentences = System.IO.File.ReadAllLines(filename).ToList();
-					List<string> splitSentences = new List<string>();
-
-					sentences.ForEach(x => splitSentences.AddRange(x.Split('.')));
+					List<string> sentences = new List<string>();
 					
+					foreach(string line in System.IO.File.ReadAllLines(filename))
+					{
+						sentences.AddRange(line.Split('.').ToList());
+					}
+
+					// Remove null or empty
+					List<string> splitSentences = sentences.Where(x => !string.IsNullOrEmpty(x)).ToList();
+
 					for (int count = 0; count < splitSentences.Count; count++)
-					{	
-						if (string.IsNullOrEmpty(splitSentences[count])) continue;
-						
+					{							
 						doc.Sentences.Add
 						(
 							new Sentence(doc)
 							{
 								Value = splitSentences[count] + '.',
-								Position = count
+								Position = count + 1
 							}
 						);
 					}
@@ -140,12 +139,18 @@ namespace AlgorithmWordSearch
 
 		private void Search(object sender, EventArgs e)
 		{
-			if (!new DocumentSearcher(Documents, GetSearchPerimeters()).Search()) return;
-
 			// Clear Old results
+			documentComboBox.DataBindings.Clear();
 			importanceTextBox.DataBindings.Clear();
 			positionLabel1.DataBindings.Clear();
 			valueTextBox.DataBindings.Clear();
+
+			if (!new DocumentSearcher(Documents, GetSearchPerimeters()).Search()) return;
+			
+
+			// Document Results Bind
+			documentComboBox.DataBindings.Add("Text", Documents, "Path");
+			documentComboBox.DataSource = Documents;
 
 			// Results Bind
 

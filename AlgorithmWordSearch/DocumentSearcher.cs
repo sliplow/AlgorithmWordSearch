@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using AlgorithmWordSearch.Models;
 
 namespace AlgorithmWordSearch
@@ -25,7 +22,6 @@ namespace AlgorithmWordSearch
 					
 			ReorderSearchesByAnd();
 
-			//bool isNotErrorState = ExtractMatchingSentences();
 			return SearchDocuments();
 		}
 		

@@ -13,12 +13,14 @@ namespace AlgorithmWordSearch.Models
 		public Document()
 		{
 			Sentences = new List<Sentence>();
-			MatchingSentences = new List<Sentence>();
 		}
 
 
 		public void Search(List<SearchPerimeter> SearchPerimeters)
-		{											
+		{
+			// This allows the data to be cleared between searches.
+			MatchingSentences = new List<Sentence>();							
+
 			if (SearchPerimeters.Count == 1)
 			{
 				Sentences.ForEach(
