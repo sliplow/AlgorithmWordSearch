@@ -49,30 +49,6 @@ namespace AlgorithmWordSearch
 
 		}
 
-		private void Search(object sender, EventArgs e)
-		{
-			new DocumentSearcher(Documents, GetSearchPerimeters()).Search();
-		}
-
-		private List<SearchPerimeter> GetSearchPerimeters()
-		{
-			List<SearchPerimeter> searchPerimeters = new List<SearchPerimeter>();
-
-			foreach (DataRow row in SearchOptions.Rows)
-			{
-				if (string.IsNullOrEmpty(row.ItemArray[0].ToString())) continue;
-
-				searchPerimeters.Add(
-					new SearchPerimeter(
-						(SearchType)Enum.Parse(
-							typeof(SearchType),
-							row.ItemArray[1].ToString(),
-							true),
-						row.ItemArray[0].ToString()));
-			}
-			return searchPerimeters;
-		}
-
 		private void AddNewSearchOption(object sender, EventArgs e)
 		{
 			SearchOptions.Rows.Add("", "AND");
@@ -126,8 +102,22 @@ namespace AlgorithmWordSearch
 
 					doc.Path = filename;
 
-					System.IO.File.ReadAllLines(openFileDialog1.FileName).ToList().ForEach(
-						x => doc.Sentences.Add(new Sentence(doc){Value = x}));
+					List<string> sentences = System.IO.File.ReadAllLines(filename).ToList();
+					List<string> splitSentences = new List<string>();
+
+					sentences.ForEach(x => splitSentences.AddRange(x.Split('.')));
+					
+					for (int count = 0; count < splitSentences.Count; count++)
+					{	
+						if (string.IsNullOrEmpty(splitSentences[count])) continue;
+						
+						doc.Sentences.Add(
+						new Sentence(doc)
+						{
+							Value = splitSentences[count] + '.',
+							Position = count
+						});
+					}
 
 					Documents.Add(doc);
 
@@ -144,6 +134,32 @@ namespace AlgorithmWordSearch
 		private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
 		{
 
+		}
+
+		private void Search(object sender, EventArgs e)
+		{
+			new DocumentSearcher(Documents, GetSearchPerimeters()).Search();
+
+
+		}
+
+		private List<SearchPerimeter> GetSearchPerimeters()
+		{
+			List<SearchPerimeter> searchPerimeters = new List<SearchPerimeter>();
+
+			foreach (DataRow row in SearchOptions.Rows)
+			{
+				if (string.IsNullOrEmpty(row.ItemArray[0].ToString())) continue;
+
+				searchPerimeters.Add(
+					new SearchPerimeter(
+						(SearchType)Enum.Parse(
+							typeof(SearchType),
+							row.ItemArray[1].ToString(),
+							true),
+						row.ItemArray[0].ToString()));
+			}
+			return searchPerimeters;
 		}
 	}
 }
