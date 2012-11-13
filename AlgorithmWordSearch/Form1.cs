@@ -25,26 +25,30 @@ namespace AlgorithmWordSearch
 			//dataRepeater1.ItemTemplate.DataBindings.Add(new Binding("Value", searchPerimeters, "Value"));
 
 			
-
+			// defaults
 			comboBox1.Items.AddRange(new string[]{"AND", "OR"});
 			comboBox1.SelectedText = "AND";
-
-
+			
+			// Search Options bind
 			SearchOptions.Columns.Add("SearchOption");
 			SearchOptions.Columns.Add("SearchType");
-
-			dataRepeater1.DataSource = SearchOptions;
-			
 			SearchOptions.Rows.Add("","AND");
 
-			//textBox1.DataBindings.Add("SearchOptn", SearchOptions, "SearchOption");
-			//comboBox1.DataBindings.Add("SearchBy", SearchOptions, "SearchType");
+			textBox1.DataBindings.Add("Text", SearchOptions, "SearchOption");
+			comboBox1.DataBindings.Add("Text", SearchOptions, "SearchType");
+			dataRepeater1.DataSource = SearchOptions;
 
+			
+			// Uploaded Files bind
 			Files.Columns.Add("File Location");
 
+			label3.DataBindings.Add("Text", Files, "File Location");
 			dataRepeater2.DataSource = Files;
 
 
+			
+
+			tabControl1.TabPages[1].Hide();
 			progressBar1.Hide();
 
 		}
@@ -79,8 +83,6 @@ namespace AlgorithmWordSearch
 
 			OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
-			Console.WriteLine("Directory: " + strDirectory);
-
 			openFileDialog1.InitialDirectory = strDirectory;
 
 			openFileDialog1.Filter = "Text Files (*.txt)|*.txt|All files (*.*)|*.*";
@@ -111,20 +113,17 @@ namespace AlgorithmWordSearch
 					{	
 						if (string.IsNullOrEmpty(splitSentences[count])) continue;
 						
-						doc.Sentences.Add(
-						new Sentence(doc)
-						{
-							Value = splitSentences[count] + '.',
-							Position = count
-						});
+						doc.Sentences.Add
+						(
+							new Sentence(doc)
+							{
+								Value = splitSentences[count] + '.',
+								Position = count
+							}
+						);
 					}
 
 					Documents.Add(doc);
-
-					dataRepeater2.CurrentItem.Controls.Find("label3", false).First().Text = filename;
-					
-					//Files.Rows.Count-1
-					
 				}
 			}
 
@@ -138,9 +137,21 @@ namespace AlgorithmWordSearch
 
 		private void Search(object sender, EventArgs e)
 		{
-			new DocumentSearcher(Documents, GetSearchPerimeters()).Search();
+			if (!new DocumentSearcher(Documents, GetSearchPerimeters()).Search()) return;
 
 
+			// Results Bind
+			documentComboBox.DataBindings.Add("Text", Documents, "Path");
+			documentComboBox.DataSource = Documents;
+
+
+			importanceTextBox.DataBindings.Add("Text", Documents[0].MatchingSentences, "Importance");
+			positionLabel1.DataBindings.Add("Text", Documents[0].MatchingSentences, "Position");
+			valueTextBox.DataBindings.Add("Text", Documents[0].MatchingSentences, "Value");
+			sentencesDataRepeater.DataSource = Documents[0].MatchingSentences;
+
+			tabControl1.TabPages[1].Show();
+			tabControl1.SelectedIndex = 1;
 		}
 
 		private List<SearchPerimeter> GetSearchPerimeters()

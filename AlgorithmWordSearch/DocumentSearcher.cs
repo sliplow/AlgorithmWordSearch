@@ -41,11 +41,12 @@ namespace AlgorithmWordSearch
 		
 		private void ReorderSearchesByAnd()
 		{
-			if (SearchPerimeters[1].SearchType == SearchType.AND)
-			{
-				SearchPerimeters.Insert(0, SearchPerimeters[1]);
-				SearchPerimeters.RemoveAt(2);
-			}
+			if (SearchPerimeters.Count == 1 ||
+				SearchPerimeters[1].SearchType == SearchType.OR) return;
+			
+			SearchPerimeters.Insert(0, SearchPerimeters[1]);
+			SearchPerimeters.RemoveAt(2);
+			
 		}
 	}
 }

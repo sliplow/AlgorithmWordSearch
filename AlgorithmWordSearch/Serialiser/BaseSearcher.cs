@@ -39,13 +39,11 @@ namespace AlgorithmWordSearch.Serialiser
 		/// </summary>
 		public virtual void Search()
 		{
-			Regex regularExpression = new Regex(Sentence.Value, RegexOptions.IgnoreCase);
-
-			Search1Matches = regularExpression.Matches(Search1).Count;
+			Search1Matches = Regex.Matches(Sentence.Value, Search1).Count;
 			
 			if (string.IsNullOrEmpty(Search2)) return;
 
-			Search2Matches = regularExpression.Matches(Search2).Count; 
+			Search2Matches = Regex.Matches(Sentence.Value, Search2).Count; 
 		}
 	}
 }
