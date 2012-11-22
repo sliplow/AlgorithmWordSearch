@@ -9,8 +9,8 @@ using AlgorithmWordSearch.Models;
 namespace AlgorithmWordSearch
 {
 	public partial class DocumentWordSearch : Form
-	{		
-		List<Document> Documents = new List<Document>();
+	{
+		DocumentList Documents = new DocumentList();
 
 		DataTable SearchOptions = new DataTable();
 		DataTable Files = new DataTable();
@@ -18,13 +18,7 @@ namespace AlgorithmWordSearch
 		public DocumentWordSearch()
 		{
 			InitializeComponent();
-
-			//searchPerimeters.Add(new SearchPerimeter(SearchType.AND, "dskasdasd"));
-			//dataRepeater1.DataSource = searchPerimeters;
-			//dataRepeater1.ItemTemplate.DataBindings.Add(new Binding("SearchType", searchPerimeters[0], "SearchType"));
-			//dataRepeater1.ItemTemplate.DataBindings.Add(new Binding("Value", searchPerimeters, "Value"));
-
-			
+									
 			// defaults
 			comboBox1.Items.AddRange(new string[]{"AND", "OR"});
 			comboBox1.SelectedText = "AND";
@@ -42,14 +36,10 @@ namespace AlgorithmWordSearch
 			// Uploaded Files bind
 			Files.Columns.Add("File Location");
 
-			label3.DataBindings.Add("Text", Files, "File Location");
+			fileLocations.DataBindings.Add("Text", Files, "File Location");
 			dataRepeater2.DataSource = Files;
-
 			
-
 			tabControl1.TabPages[1].Hide();
-			progressBar1.Hide();
-
 		}
 
 		private void AddNewSearchOption(object sender, EventArgs e)
@@ -61,7 +51,6 @@ namespace AlgorithmWordSearch
 		{
 			SearchOptions.Rows.RemoveAt(dataRepeater1.CurrentItem.ItemIndex);
 		}
-
 
 		/// <summary>
 		/// Based my upload function on this article.
@@ -128,44 +117,6 @@ namespace AlgorithmWordSearch
 					Documents.Add(doc);
 				}
 			}
-
-
-		}
-
-		private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
-		{
-
-		}
-
-		private void Search(object sender, EventArgs e)
-		{
-			// Clear Old results
-			documentComboBox.Items.Clear();
-
-			documentComboBox.DataBindings.Clear();
-			importanceTextBox.DataBindings.Clear();
-			positionLabel1.DataBindings.Clear();
-			valueTextBox.DataBindings.Clear();
-
-			if (!new DocumentSearcher(Documents, GetSearchPerimeters()).Search())
-			{
-				MessageBox.Show("Search did not return any Results.");
-				return;
-			}
-
-			// Document Results Bind
-			documentComboBox.DataBindings.Add("Text", Documents, "Path");
-			documentComboBox.Items.AddRange(Documents.Select(x => x.Path).ToArray());
-
-			// Results Bind
-
-			importanceTextBox.DataBindings.Add("Text", Documents[0].MatchingSentences, "Importance");
-			positionLabel1.DataBindings.Add("Text", Documents[0].MatchingSentences, "Position");
-			valueTextBox.DataBindings.Add("Text", Documents[0].MatchingSentences, "Value");
-			sentencesDataRepeater.DataSource = Documents[0].MatchingSentences;
-
-			tabControl1.TabPages[1].Show();
-			tabControl1.SelectedIndex = 1;
 		}
 
 		private List<SearchPerimeter> GetSearchPerimeters()
@@ -185,6 +136,55 @@ namespace AlgorithmWordSearch
 						row.ItemArray[0].ToString()));
 			}
 			return searchPerimeters;
+		}
+
+		private void Search(object sender, EventArgs e)
+		{
+			if (!new DocumentSearcher(Documents, GetSearchPerimeters()).Search())
+			{
+				MessageBox.Show("Search did not return any Results.");
+				return;
+			}
+						
+			documentComboBox.Items.Clear();
+			documentComboBox.DataBindings.Clear();
+
+			// Document Results Bind
+			documentComboBox.Items.AddRange(Documents.Select(x => x.Path).ToArray());
+			documentComboBox.DataBindings.Add("Text", Documents, "Path");
+			
+			Document doc = Documents.GetHighestPriority();
+
+			SetResultsToDocument(doc);
+
+			// Show Results tab
+			tabControl1.TabPages[1].Show();
+			tabControl1.SelectedIndex = 1;
+		}
+
+		private void SetResultsToDocument(Document doc)
+		{
+			// Clear Old results
+			importanceTextBox.DataBindings.Clear();
+			positionLabel1.DataBindings.Clear();
+			valueTextBox.DataBindings.Clear();
+
+			// Results Bind
+
+			fileImportance.Text = doc.MatchingSentences.Count.ToString();
+			importanceTextBox.DataBindings.Add("Text", doc.MatchingSentences, "Importance");
+			positionLabel1.DataBindings.Add("Text", doc.MatchingSentences, "Position");
+			valueTextBox.DataBindings.Add("Text", doc.MatchingSentences, "Value");
+			sentencesDataRepeater.DataSource = doc.MatchingSentences;
+		}
+
+		public void SelectedIndexChanged(object sender, System.EventArgs e)
+		{
+			string text = ((ComboBox)sender).SelectedItem.ToString();
+			
+			if(string.IsNullOrEmpty(text)) return;
+
+			SetResultsToDocument(Documents.First(x => x.Path == text));
 		}
 	}
 }

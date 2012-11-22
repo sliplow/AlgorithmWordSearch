@@ -35,7 +35,6 @@ namespace AlgorithmWordSearch
 			System.Windows.Forms.Label positionLabel;
 			System.Windows.Forms.Label importanceLabel;
 			this.button1 = new System.Windows.Forms.Button();
-			this.progressBar1 = new System.Windows.Forms.ProgressBar();
 			this.ItemTemplate = new Microsoft.VisualBasic.PowerPacks.DataRepeaterItem();
 			this.comboBox1 = new System.Windows.Forms.ComboBox();
 			this.textBox1 = new System.Windows.Forms.TextBox();
@@ -45,12 +44,14 @@ namespace AlgorithmWordSearch
 			this.button2 = new System.Windows.Forms.Button();
 			this.button3 = new System.Windows.Forms.Button();
 			this.dataRepeater2 = new Microsoft.VisualBasic.PowerPacks.DataRepeater();
-			this.label3 = new System.Windows.Forms.Label();
+			this.fileLocations = new System.Windows.Forms.Label();
 			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
 			this.button4 = new System.Windows.Forms.Button();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.fileImportance = new System.Windows.Forms.Label();
+			this.label4 = new System.Windows.Forms.Label();
 			this.documentComboBox = new System.Windows.Forms.ComboBox();
 			this.sentencesDataRepeater = new Microsoft.VisualBasic.PowerPacks.DataRepeater();
 			this.importanceTextBox = new System.Windows.Forms.Label();
@@ -106,13 +107,6 @@ namespace AlgorithmWordSearch
 			this.button1.Text = "Start Search";
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.Search);
-			// 
-			// progressBar1
-			// 
-			this.progressBar1.Location = new System.Drawing.Point(75, 291);
-			this.progressBar1.Name = "progressBar1";
-			this.progressBar1.Size = new System.Drawing.Size(100, 23);
-			this.progressBar1.TabIndex = 1;
 			// 
 			// ItemTemplate
 			// 
@@ -194,26 +188,26 @@ namespace AlgorithmWordSearch
 			// 
 			// dataRepeater2.ItemTemplate
 			// 
-			this.dataRepeater2.ItemTemplate.Controls.Add(this.label3);
+			this.dataRepeater2.ItemTemplate.Controls.Add(this.fileLocations);
 			this.dataRepeater2.ItemTemplate.Size = new System.Drawing.Size(570, 21);
 			this.dataRepeater2.Location = new System.Drawing.Point(3, 166);
 			this.dataRepeater2.Name = "dataRepeater2";
-			this.dataRepeater2.Size = new System.Drawing.Size(578, 90);
+			this.dataRepeater2.Size = new System.Drawing.Size(578, 111);
 			this.dataRepeater2.TabIndex = 6;
 			this.dataRepeater2.Text = "dataRepeater2";
 			// 
-			// label3
+			// fileLocations
 			// 
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(3, 0);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(35, 13);
-			this.label3.TabIndex = 0;
-			this.label3.Text = "label3";
+			this.fileLocations.AutoSize = true;
+			this.fileLocations.Location = new System.Drawing.Point(3, 0);
+			this.fileLocations.Name = "fileLocations";
+			this.fileLocations.Size = new System.Drawing.Size(35, 13);
+			this.fileLocations.TabIndex = 0;
+			this.fileLocations.Text = "label3";
 			// 
 			// button4
 			// 
-			this.button4.Location = new System.Drawing.Point(87, 262);
+			this.button4.Location = new System.Drawing.Point(87, 295);
 			this.button4.Name = "button4";
 			this.button4.Size = new System.Drawing.Size(75, 23);
 			this.button4.TabIndex = 7;
@@ -235,7 +229,6 @@ namespace AlgorithmWordSearch
 			// 
 			this.tabPage1.Controls.Add(this.dataRepeater1);
 			this.tabPage1.Controls.Add(this.button1);
-			this.tabPage1.Controls.Add(this.progressBar1);
 			this.tabPage1.Controls.Add(this.button4);
 			this.tabPage1.Controls.Add(this.label1);
 			this.tabPage1.Controls.Add(this.dataRepeater2);
@@ -253,6 +246,8 @@ namespace AlgorithmWordSearch
 			// tabPage2
 			// 
 			this.tabPage2.AutoScroll = true;
+			this.tabPage2.Controls.Add(this.fileImportance);
+			this.tabPage2.Controls.Add(this.label4);
 			this.tabPage2.Controls.Add(this.documentComboBox);
 			this.tabPage2.Controls.Add(this.sentencesDataRepeater);
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -263,14 +258,33 @@ namespace AlgorithmWordSearch
 			this.tabPage2.Text = "Results";
 			this.tabPage2.UseVisualStyleBackColor = true;
 			// 
+			// fileImportance
+			// 
+			this.fileImportance.AutoSize = true;
+			this.fileImportance.Location = new System.Drawing.Point(495, 31);
+			this.fileImportance.Name = "fileImportance";
+			this.fileImportance.Size = new System.Drawing.Size(0, 13);
+			this.fileImportance.TabIndex = 4;
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(406, 30);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(82, 13);
+			this.label4.TabIndex = 3;
+			this.label4.Text = "File Importance:";
+			// 
 			// documentComboBox
 			// 
+			this.documentComboBox.DisplayMember = "MatchingSentences";
 			this.documentComboBox.FormattingEnabled = true;
 			this.documentComboBox.Location = new System.Drawing.Point(3, 6);
 			this.documentComboBox.Name = "documentComboBox";
 			this.documentComboBox.Size = new System.Drawing.Size(533, 21);
 			this.documentComboBox.TabIndex = 2;
 			this.documentComboBox.ValueMember = "MatchingSentences";
+			this.documentComboBox.SelectedValueChanged += new System.EventHandler(this.SelectedIndexChanged);
 			// 
 			// sentencesDataRepeater
 			// 
@@ -330,6 +344,7 @@ namespace AlgorithmWordSearch
 			this.tabPage1.ResumeLayout(false);
 			this.tabPage1.PerformLayout();
 			this.tabPage2.ResumeLayout(false);
+			this.tabPage2.PerformLayout();
 			this.sentencesDataRepeater.ItemTemplate.ResumeLayout(false);
 			this.sentencesDataRepeater.ItemTemplate.PerformLayout();
 			this.sentencesDataRepeater.ResumeLayout(false);
@@ -340,7 +355,6 @@ namespace AlgorithmWordSearch
 		#endregion
 
 		private System.Windows.Forms.Button button1;
-		private System.Windows.Forms.ProgressBar progressBar1;
 		private System.Windows.Forms.ComboBox comboBox1;
 		private System.Windows.Forms.TextBox textBox1;
 		private Microsoft.VisualBasic.PowerPacks.DataRepeater dataRepeater1;
@@ -352,7 +366,7 @@ namespace AlgorithmWordSearch
 		private Microsoft.VisualBasic.PowerPacks.DataRepeater dataRepeater2;
 		private System.Windows.Forms.OpenFileDialog openFileDialog1;
 		private System.Windows.Forms.Button button4;
-		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.Label fileLocations;
 		private System.Windows.Forms.TabControl tabControl1;
 		private System.Windows.Forms.TabPage tabPage1;
 		private System.Windows.Forms.TabPage tabPage2;
@@ -362,5 +376,7 @@ namespace AlgorithmWordSearch
 		private System.Windows.Forms.Label positionLabel1;
 		private System.Windows.Forms.TextBox valueTextBox;
 		private System.Windows.Forms.ComboBox documentComboBox;
+		private System.Windows.Forms.Label fileImportance;
+		private System.Windows.Forms.Label label4;
 	}
 }
