@@ -48,7 +48,7 @@ namespace AlgorithmWordSearch.Models
 							.Search());
 			}
 
-			MatchingSentences.OrderBy(x => x.Importance);
+			MatchingSentences = MatchingSentences.OrderByDescending(x => x.Importance).ToList();
 		}
 	}
 }
