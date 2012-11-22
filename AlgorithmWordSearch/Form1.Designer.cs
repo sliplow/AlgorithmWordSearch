@@ -185,6 +185,7 @@ namespace AlgorithmWordSearch
 			// 
 			// dataRepeater2
 			// 
+			this.dataRepeater2.AllowUserToDeleteItems = false;
 			// 
 			// dataRepeater2.ItemTemplate
 			// 
