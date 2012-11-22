@@ -14,7 +14,7 @@ namespace AlgorithmWordSearch.Models
 		{
 			get
 			{
-				return (double)MatchingSentences.Count / (double)Sentences.Count * (double)100;
+				return MatchingSentences.Sum(x => x.Importance);
 			}
 		}
 
