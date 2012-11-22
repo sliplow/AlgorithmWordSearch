@@ -61,13 +61,10 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\DocumentList.cs" />
     <Compile Include="Serialiser\AndSearcher.cs" />
     <Compile Include="Serialiser\OrSearcher.cs" />
     <Compile Include="Serialiser\BaseSearcher.cs" />
-    <Compile Include="Models\MatchingSentence.cs" />
     <Compile Include="Models\Document.cs" />
-    <Compile Include="Models\ISentence.cs" />
     <Compile Include="Models\SearchType.cs" />
     <Compile Include="Models\Sentence.cs" />
     <Compile Include="Program.cs" />

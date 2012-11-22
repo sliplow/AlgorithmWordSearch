@@ -10,6 +10,14 @@ namespace AlgorithmWordSearch.Models
 		public List<Sentence> Sentences { get; set; }
 		public List<Sentence> MatchingSentences { get; set; }
 
+		public double Importance
+		{
+			get
+			{
+				return (double)MatchingSentences.Count / (double)Sentences.Count * (double)100;
+			}
+		}
+
 		public Document()
 		{
 			Sentences = new List<Sentence>();

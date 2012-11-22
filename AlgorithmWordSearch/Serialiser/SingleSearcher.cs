@@ -19,7 +19,9 @@ namespace AlgorithmWordSearch.Serialiser
 
 			if (Search1Matches != 0)
 			{
-				Sentence.AddToMatches(Search1Matches);
+				Sentence.AddToMatches(Search1Matches * Search1.Length);
+
+				RoundImportance();
 			}
 		}
 	}

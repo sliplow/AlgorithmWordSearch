@@ -1,4 +1,5 @@
 ﻿using AlgorithmWordSearch.Models;
+using System;
 
 namespace AlgorithmWordSearch.Serialiser
 {
@@ -21,7 +22,15 @@ namespace AlgorithmWordSearch.Serialiser
 
 			if (Search1Matches != 0 && Search2Matches != 0)
 			{
-				Sentence.AddToMatches(Search1Matches + Search2Matches);
+				// We use an optional perimeter to get the number of pairs and couples in the search.
+
+				Sentence.AddToMatches(
+					Search1Matches * Search1.Length + Search2Matches * Search2.Length,
+					Math.Min(Search1Matches, Search2Matches) * (Search1.Length + Search2.Length));
+
+				Sentence.Importance *= MatchesProximity;
+
+				RoundImportance();
 			}
 		}
 	}

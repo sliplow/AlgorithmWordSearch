@@ -10,7 +10,7 @@ namespace AlgorithmWordSearch
 {
 	public partial class DocumentWordSearch : Form
 	{
-		DocumentList Documents = new DocumentList();
+		List<Document> Documents = new List<Document>();
 
 		DataTable SearchOptions = new DataTable();
 		DataTable Files = new DataTable();
@@ -145,17 +145,17 @@ namespace AlgorithmWordSearch
 				MessageBox.Show("Search did not return any Results.");
 				return;
 			}
-						
+			
+			Documents = Documents.OrderByDescending(y => y.Importance).ToList();
+		
 			documentComboBox.Items.Clear();
 			documentComboBox.DataBindings.Clear();
 
 			// Document Results Bind
 			documentComboBox.Items.AddRange(Documents.Select(x => x.Path).ToArray());
 			documentComboBox.DataBindings.Add("Text", Documents, "Path");
-			
-			Document doc = Documents.GetHighestPriority();
 
-			SetResultsToDocument(doc);
+			SetResultsToDocument(Documents[0]);
 
 			// Show Results tab
 			tabControl1.TabPages[1].Show();
@@ -164,6 +164,10 @@ namespace AlgorithmWordSearch
 
 		private void SetResultsToDocument(Document doc)
 		{
+			documentComboBox.SelectedItem = doc;
+			//documentComboBox.SelectedText = doc.Path;
+			//documentComboBox.SelectedValue = doc.Path;
+
 			// Clear Old results
 			importanceTextBox.DataBindings.Clear();
 			positionLabel1.DataBindings.Clear();
@@ -171,7 +175,7 @@ namespace AlgorithmWordSearch
 
 			// Results Bind
 
-			fileImportance.Text = doc.MatchingSentences.Count.ToString();
+			fileImportance.Text = Math.Round(doc.Importance, 2).ToString();
 			importanceTextBox.DataBindings.Add("Text", doc.MatchingSentences, "Importance");
 			positionLabel1.DataBindings.Add("Text", doc.MatchingSentences, "Position");
 			valueTextBox.DataBindings.Add("Text", doc.MatchingSentences, "Value");
@@ -182,7 +186,7 @@ namespace AlgorithmWordSearch
 		{
 			string text = ((ComboBox)sender).SelectedItem.ToString();
 			
-			if(string.IsNullOrEmpty(text)) return;
+			if(!Documents.Exists(x => x.Path == text)) return;
 
 			SetResultsToDocument(Documents.First(x => x.Path == text));
 		}
