@@ -153,7 +153,6 @@ namespace AlgorithmWordSearch
 
 			// Document Results Bind
 			documentComboBox.Items.AddRange(Documents.Select(x => x.Path).ToArray());
-			documentComboBox.DataBindings.Add("Text", Documents, "Path");
 
 			SetResultsToDocument(Documents[0]);
 
