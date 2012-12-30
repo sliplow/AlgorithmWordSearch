@@ -6,8 +6,6 @@ namespace AlgorithmWordSearch.Serialiser
 {
 	public abstract class BaseSearcher
 	{
-		protected Sentence Sentence { get; set; }
-
 		protected string Search1 { get; set; }
 		protected string Search2 { get; set; }
 
@@ -17,29 +15,24 @@ namespace AlgorithmWordSearch.Serialiser
 		protected int MatchesProximity { get; set; }
 		 
 		public BaseSearcher(
-			Sentence sentence,
 			string search1,
 			string search2)
 		{
 			// If no matches found we apply no bonus.
-			MatchesProximity = 1;
 
-			Sentence = sentence;
 			Search1 = search1;
 			Search2 = search2;
 		}
 		
 		public BaseSearcher(
-			Sentence sentence,
 			string search1)
 		{
-			Sentence = sentence;
 			Search1 = search1;
 		}
 
-		protected void RoundImportance()
+		protected void RoundImportance(Sentence sentence)
 		{
-			Sentence.Importance = Math.Round(Sentence.Importance, 2);
+			sentence.Importance = Math.Round(sentence.Importance, 2);
 		}
 
 		/// <summary>
@@ -47,14 +40,18 @@ namespace AlgorithmWordSearch.Serialiser
 		/// Used the above method instead of my initial idea of split, remove incorrect and then count.
 		/// Because of the additional loop involved.
 		/// </summary>
-		public virtual void Search()
+		public virtual void Search(Sentence sentence)
 		{
-			var matches1 = Regex.Matches(Sentence.Value, Search1);
+			// Reset the proximity each search
+			MatchesProximity = 1;
+
+			var matches1 = Regex.Matches(sentence.Value, Search1);
 			Search1Matches = matches1.Count;
 			
+
 			if (string.IsNullOrEmpty(Search2)) return;
 
-			var matches2 = Regex.Matches(Sentence.Value, Search2);
+			var matches2 = Regex.Matches(sentence.Value, Search2);
 			Search2Matches = matches2.Count;
 
 
@@ -94,7 +91,7 @@ namespace AlgorithmWordSearch.Serialiser
 					((Search1Matches - 1) * Search1.Length) - 
 					((Search2Matches - 1) * Search2.Length))
 				// Get as percentage of all characters in the sentence
-				/ Sentence.Value.Length);
+				/ sentence.Value.Length);
 		}
 	}
 }

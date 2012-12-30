@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using AlgorithmWordSearch.Models;
+using AlgorithmWordSearch.Serialiser;
 
 namespace AlgorithmWordSearch
 {
@@ -27,12 +28,33 @@ namespace AlgorithmWordSearch
 		
 		private bool SearchDocuments()
 		{
+			BaseSearcher searcher = GetSearchClass();
+
 			foreach (Document document in Documents)
 			{
-				document.Search(SearchPerimeters);				
+				document.Search(searcher);				
 			}
 
 			return Documents.Exists(x => x.MatchingSentences.Count != 0);
+		}
+
+		private BaseSearcher GetSearchClass()
+		{
+			if (SearchPerimeters.Count == 1)
+			{
+				return new SingleSearcher(
+				   SearchPerimeters[0].Value);
+			}
+			else if (SearchPerimeters[1].SearchType == SearchType.OR)
+			{
+				return new OrSearcher(
+					SearchPerimeters[0].Value,
+					SearchPerimeters[1].Value);
+			}
+
+			return new AndSearcher(
+				SearchPerimeters[0].Value,
+				SearchPerimeters[1].Value);
 		}
 		
 		private void ReorderSearchesByAnd()

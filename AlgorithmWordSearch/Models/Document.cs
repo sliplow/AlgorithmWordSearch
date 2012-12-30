@@ -24,37 +24,12 @@ namespace AlgorithmWordSearch.Models
 		}
 
 
-		public void Search(List<SearchPerimeter> SearchPerimeters)
+		public void Search(BaseSearcher searcher)
 		{
 			// This allows the data to be cleared between searches.
 			MatchingSentences = new List<Sentence>();							
 
-			if (SearchPerimeters.Count == 1)
-			{
-				Sentences.ForEach(
-					x => new SingleSearcher(
-						x, 
-						SearchPerimeters[0].Value)
-							.Search());
-			}
-			else if (SearchPerimeters[1].SearchType == SearchType.OR)
-			{
-				Sentences.ForEach(
-					x => new OrSearcher(
-						x,
-						SearchPerimeters[0].Value,
-						SearchPerimeters[1].Value)
-							.Search());
-			}
-			else
-			{
-				Sentences.ForEach(
-					x => new AndSearcher(
-						x,
-						SearchPerimeters[0].Value,
-						SearchPerimeters[1].Value)
-							.Search());
-			}
+			Sentences.ForEach(x => searcher.Search(x));
 
 			MatchingSentences = MatchingSentences.OrderByDescending(x => x.Importance).ToList();
 		}

@@ -4,24 +4,20 @@ namespace AlgorithmWordSearch.Serialiser
 {
 	public class SingleSearcher : BaseSearcher
 	{		 
-		public SingleSearcher(
-			Sentence sentence,
-			string search1)
-			: base(
-				sentence,
-				search1) 
+		public SingleSearcher(string search1)
+			: base(search1) 
 		{
 		}
 
-		public override void Search()			
+		public override void Search(Sentence sentence)			
 		{
-			base.Search();
+			base.Search(sentence);
 
 			if (Search1Matches != 0)
 			{
-				Sentence.AddToMatches(Search1Matches * Search1.Length);
+				sentence.AddToMatches(Search1Matches * Search1.Length);
 
-				RoundImportance();
+				RoundImportance(sentence);
 			}
 		}
 	}
