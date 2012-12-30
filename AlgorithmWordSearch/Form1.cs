@@ -93,10 +93,10 @@ namespace AlgorithmWordSearch
 
 					List<string> sentences = new List<string>();
 					
-					foreach(string line in System.IO.File.ReadAllLines(filename))
-					{
-						sentences.AddRange(line.Split('.').ToList());
-					}
+					// This takes all the text in one string and then splits it at each full stop.
+
+					sentences.AddRange(System.IO.File.ReadAllText(filename).Split('.').ToList());
+					
 
 					// Remove null or empty
 					List<string> splitSentences = sentences.Where(x => !string.IsNullOrEmpty(x)).ToList();
