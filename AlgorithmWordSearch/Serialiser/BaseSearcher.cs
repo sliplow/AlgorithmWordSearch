@@ -42,16 +42,18 @@ namespace AlgorithmWordSearch.Serialiser
 		/// </summary>
 		public virtual void Search(Sentence sentence)
 		{
-			// Reset the proximity each search
+			// Reset the proximity of each search
 			MatchesProximity = 1;
 
-			var matches1 = Regex.Matches(sentence.Value, Search1);
+			// Get all matches for the first search option.
+			MatchCollection matches1 = Regex.Matches(sentence.Value, Search1);
 			Search1Matches = matches1.Count;
 			
-
+			// If there is no second search option return
 			if (string.IsNullOrEmpty(Search2)) return;
 
-			var matches2 = Regex.Matches(sentence.Value, Search2);
+			// Get all matches for the second search option.
+			MatchCollection matches2 = Regex.Matches(sentence.Value, Search2);
 			Search2Matches = matches2.Count;
 
 
