@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AlgorithmWordSearch.Serialiser;
+using System;
 
 namespace AlgorithmWordSearch.Models
 {
@@ -30,6 +31,28 @@ namespace AlgorithmWordSearch.Models
 			MatchingSentences = new List<Sentence>();							
 
 			Sentences.ForEach(x => searcher.Search(x));
+
+			Sort();
+		}
+
+		private void Sort()
+		{
+			// No sort if less than two results
+			if (MatchingSentences.Count < 2) return;
+
+			int startOfSecoundHalf = Math.Abs(MatchingSentences.Count/2);
+
+			List<Sentence> secondHalf = new List<Sentence>();
+			for(int counter = startOfSecoundHalf; counter < MatchingSentences.Count; counter ++)
+			{
+				secondHalf.Add(MatchingSentences[counter]);
+			}
+
+			MatchingSentences.RemoveRange(startOfSecoundHalf, MatchingSentences.Count - startOfSecoundHalf);
+
+			MatchingSentences = MatchingSentences.OrderByDescending(x => x.Importance).ToList();
+			
+			MatchingSentences.AddRange(secondHalf.OrderByDescending(x => x.Importance));
 
 			MatchingSentences = MatchingSentences.OrderByDescending(x => x.Importance).ToList();
 		}
