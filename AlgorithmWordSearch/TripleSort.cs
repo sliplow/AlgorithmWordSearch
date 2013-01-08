@@ -34,20 +34,6 @@ namespace AlgorithmWordSearch
 
 				default:
 				{
-
-					//List<Sentence> firstHalf = new List<Sentence>();
-					//List<Sentence> secondHalf = new List<Sentence>();
-					//List<Sentence> thirdHalf = new List<Sentence>();
-
-					//for (int counter = sortEvery; counter < sortEvery*2; counter++)
-					//{
-					//    secondHalf.Add(originalSentences[counter]);
-					//}
-					//for (int counter = sortEvery*3; counter < sortEvery * 3; counter++)
-					//{
-					//    thirdHalf.Add(originalSentences)
-					//}
-
 					return TripleListSort(OriginalSentences);
 				}
 			}
@@ -74,14 +60,12 @@ namespace AlgorithmWordSearch
 			
 			if ((startKey - (int)startKey) > 0) startKey++;
 
-			 //(trip.IsRaps ? "RAPS" : "AFF")
-
 			for (double counter = Math.Abs(startKey); counter < endKey; counter++)
 			{
 				smallerTempList.Add(tempList[(int)counter]);
 			}
 
-			switch (tempList.Count)
+			switch (smallerTempList.Count)
 			{
 				case 0:
 				{
@@ -91,6 +75,11 @@ namespace AlgorithmWordSearch
 				case 1:
 				{
 					return smallerTempList;
+				}
+
+				case 2:
+				{
+					return Sort(smallerTempList, 0, 1);
 				}
 
 				default:
