@@ -63,8 +63,7 @@ namespace AlgorithmWordSearch
 				SearchPerimeters[1].SearchType == SearchType.OR) return;
 			
 			SearchPerimeters.Insert(0, SearchPerimeters[1]);
-			SearchPerimeters.RemoveAt(2);
-			
+			SearchPerimeters.RemoveAt(2);			
 		}
 	}
 }
