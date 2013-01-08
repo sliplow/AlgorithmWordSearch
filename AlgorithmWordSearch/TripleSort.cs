@@ -128,12 +128,21 @@ namespace AlgorithmWordSearch
 		{
 			foreach(Sentence sentence in mergingList)
 			{
+				// Get Last element position in the sorted list
+				
 				int counter = sortedItems.Count - 1;
 				
+				// Get Position to insert in the sorted list.
+
 				while(counter >= 0)
 				{
+					// We loop through the list from the last element to the first, 
+					// checking that the importance is less than the previous item.
+
 					if (sortedItems[counter].Importance > sentence.Importance)
 					{
+						// When the item matches I add it into the previous position.
+
 						sortedItems.Insert(counter + 1, sentence);
 
 						break;
