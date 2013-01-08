@@ -39,14 +39,42 @@ namespace AlgorithmWordSearch
 			}
 		}
 
+		/// <summary>
+		/// This sorts two items in a list.
+		/// </summary>
+		/// <param name="tempList"></param>
+		/// <param name="firstNum"></param>
+		/// <param name="secondNum"></param>
+		/// <returns>a new list with the items ordered by highest value first</returns>
+		private List<Sentence> Sort(List<Sentence> tempList, int firstNum, int secondNum)
+		{
+			// Check if one item is larger than the other.
+
+			if (tempList[secondNum].Importance > tempList[firstNum].Importance)
+			{
+				// returns a new list with the items ordered by highest value first.
+
+				return new List<Sentence>() { tempList[secondNum], tempList[firstNum] };
+			}
+
+			return new List<Sentence>() { tempList[firstNum], tempList[secondNum] };
+		}
+
 		private List<Sentence> TripleListSort(List<Sentence> listToBeSplit)
 		{
+			// This variable is used to count how many items will be in each sublist.
+
 			double sortEveryKey = listToBeSplit.Count / (double) 3;
 			List<Sentence> sortedItems = new List<Sentence>();
 
-			List<Sentence> firstGroup = SortList(listToBeSplit, 0, sortEveryKey);
-			List<Sentence> thirdGroup = SortList(listToBeSplit, sortEveryKey * 2, sortEveryKey * 3);
-			sortedItems.AddRange(SortList(listToBeSplit, sortEveryKey, sortEveryKey * 2));
+			// Break Sentences up into three groups.
+			// This is recursive so this will continue to divide the list into smaller lists then merge them together.
+
+			List<Sentence> firstGroup = SortInternalList(listToBeSplit, 0, sortEveryKey);
+			List<Sentence> thirdGroup = SortInternalList(listToBeSplit, sortEveryKey * 2, sortEveryKey * 3);
+			sortedItems.AddRange(SortInternalList(listToBeSplit, sortEveryKey, sortEveryKey * 2));
+
+			// Merge the other lists into the sorted list.
 
 			MergeList(sortedItems, thirdGroup);
 			MergeList(sortedItems, firstGroup);
@@ -54,10 +82,12 @@ namespace AlgorithmWordSearch
 			return sortedItems;
 		}
 
-		private List<Sentence> SortList(List<Sentence> tempList, double startKey, double endKey)
+		private List<Sentence> SortInternalList(List<Sentence> tempList, double startKey, double endKey)
 		{
 			List<Sentence> smallerTempList = new List<Sentence>();
 			
+			// This is to stop Math.Abs rounding down and causing duplicate entries in the lists.
+
 			if ((startKey - (int)startKey) > 0) startKey++;
 
 			for (double counter = Math.Abs(startKey); counter < endKey; counter++)
@@ -89,16 +119,11 @@ namespace AlgorithmWordSearch
 			}
 		}
 
-		private List<Sentence> Sort(List<Sentence> tempList, int firstNum, int secondNum)
-		{
-			if (tempList[secondNum].Importance > tempList[firstNum].Importance)
-			{
-				return new List<Sentence>() { tempList[secondNum], tempList[firstNum] };
-			}
-
-			return new List<Sentence>() { tempList[firstNum], tempList[secondNum] };
-		}
-
+		/// <summary>
+		/// Merge and sort another list into the first list.
+		/// </summary>
+		/// <param name="sortedItems"></param>
+		/// <param name="mergingList"></param>
 		private void MergeList(List<Sentence> sortedItems, List<Sentence> mergingList)
 		{
 			foreach(Sentence sentence in mergingList)
