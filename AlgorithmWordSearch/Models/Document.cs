@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AlgorithmWordSearch.Serialiser;
-using System;
 
 namespace AlgorithmWordSearch.Models
 {
@@ -33,6 +33,8 @@ namespace AlgorithmWordSearch.Models
 			Sentences.ForEach(x => searcher.Search(x));
 
 			Sort();
+
+			MatchingSentences = new TripleSort(MatchingSentences).Sort();
 		}
 
 		private void Sort()
