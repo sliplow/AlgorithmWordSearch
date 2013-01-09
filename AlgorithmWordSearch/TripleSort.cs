@@ -70,14 +70,14 @@ namespace AlgorithmWordSearch
 			// Break Sentences up into three groups.
 			// This is recursive so this will continue to divide the list into smaller lists then merge them together.
 
-			List<Sentence> firstGroup = SortInternalList(listToBeSplit, 0, sortEveryKey);
+			List<Sentence> secondGroup = SortInternalList(listToBeSplit, sortEveryKey, sortEveryKey * 2);
 			List<Sentence> thirdGroup = SortInternalList(listToBeSplit, sortEveryKey * 2, sortEveryKey * 3);
-			sortedItems.AddRange(SortInternalList(listToBeSplit, sortEveryKey, sortEveryKey * 2));
+			sortedItems.AddRange(SortInternalList(listToBeSplit, 0, sortEveryKey));
 
 			// Merge the other lists into the sorted list.
 
+			MergeList(sortedItems, secondGroup);
 			MergeList(sortedItems, thirdGroup);
-			MergeList(sortedItems, firstGroup);
 
 			return sortedItems;
 		}
@@ -89,6 +89,8 @@ namespace AlgorithmWordSearch
 			// This is to stop Math.Abs rounding down and causing duplicate entries in the lists.
 
 			if ((startKey - (int)startKey) > 0) startKey++;
+
+			//smallerTempList.AddRange(tempList.GetRange((int)Math.Abs(startKey), (int)endKey - (int)Math.Abs(startKey)));
 
 			for (double counter = Math.Abs(startKey); counter < endKey; counter++)
 			{
@@ -126,34 +128,35 @@ namespace AlgorithmWordSearch
 		/// <param name="mergingList"></param>
 		private void MergeList(List<Sentence> sortedItems, List<Sentence> mergingList)
 		{
+			int counter = 0;
+
+			// This only loops through 3 times.
+			// So it has constant complexity.
+
 			foreach(Sentence sentence in mergingList)
 			{
-				// Get Last element position in the sorted list
-				
-				int counter = sortedItems.Count - 1;
-				
 				// Get Position to insert in the sorted list.
 
-				while(counter >= 0)
+				while(counter < sortedItems.Count)
 				{
-					// We loop through the list from the last element to the first, 
+					// We loop through the list from the first element to the last, 
 					// checking that the importance is less than the previous item.
 
-					if (sortedItems[counter].Importance > sentence.Importance)
+					if (sortedItems[counter].Importance < sentence.Importance)
 					{
 						// When the item matches I add it into the previous position.
 
-						sortedItems.Insert(counter + 1, sentence);
+						sortedItems.Insert(counter, sentence);
 
 						break;
 					}
 
-					counter --;
+					counter ++;
 				}
 
-				if (counter == -1)
+				if (counter == sortedItems.Count)
 				{
-					sortedItems.Insert(0, sentence);
+					sortedItems.Add(sentence);
 				}
 			}
 		}
